@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusChat</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+
+<body>
+    <div class="msn-window">
+        <div class="win-titlebar">
+            <div class="win-titlebar-left">
+                <i class="ti ti-messages" aria-hidden="true"></i> NexusChat — Messenger
+            </div>
+        </div>
+        <div class="msn-body">
+            <div class="contact-panel">
+                <div class="my-profile">
+                    <div class="profile-row">
+                        <div class="my-avatar">MA</div>
+                        <div>
+                            <div class="my-name">MAIM</div>
+                            <div class="my-status">
+                                <span class="dot dot-online"></span> En ligne
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-mood">"Developing something cool"</div>
+                </div>
+                <div class="status-bar">
+                    <i class="ti ti-user" style="font-size:13px;color:#003580;" aria-hidden="true"></i>
+                    <select>
+                    <option>En ligne</option>
+                    <option>Absent(e)</option>
+                    <option>Occupé(e)</option>
+                    <option>Hors ligne</option>
+                </select>
+                </div>
+                <div class="group-title">
+                    <i class="ti ti-chevron-down" style="font-size:12px;" aria-hidden="true"></i> En ligne (3)
+                </div>
+                <div class="contact-item active">
+                    <span class="dot dot-online"></span>
+                    <div class="c-avatar av-blue">T1</div>
+                    <div class="c-info">
+                        <div class="c-name">Test1</div>
+                        <div class="c-msg">message random</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <span class="dot dot-away"></span>
+                    <div class="c-avatar av-green">t2</div>
+                    <div class="c-info">
+                        <div class="c-name">test2 </div>
+                        <div class="c-msg">Absent(e)</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <span class="dot dot-busy"></span>
+                    <div class="c-avatar av-red">T3</div>
+                    <div class="c-info">
+                        <div class="c-name">Test3</div>
+                        <div class="c-msg">Occupé(e)</div>
+                    </div>
+                </div>
+                <div class="group-title">
+                    <i class="ti ti-chevron-down" style="font-size:12px;" aria-hidden="true"></i> Hors ligne (1)
+                </div>
+                <div class="contact-item offline">
+                    <span class="dot dot-off"></span>
+                    <div class="c-avatar av-gray">T4</div>
+                    <div class="c-info">
+                        <div class="c-name">Test4</div>
+                        <div class="c-msg">Hors ligne</div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <i class="ti ti-user-plus" aria-label="Ajouter un contact"></i>
+                    <i class="ti ti-settings" aria-label="Paramètres"></i>
+                    <i class="ti ti-bell" aria-label="Notifications"></i>
+                    <i class="ti ti-help" aria-label="Aide"></i>
+                </div>
+            </div>
+            <div class="chat-area">
+                <div class="chat-toolbar">
+                    <div class="tool-btn">
+                        <i class="ti ti-mood-smile" aria-hidden="true"></i> Émoticônes
+                    </div>
+                    <div class="tool-btn">
+                        <i class="ti ti-photo" aria-hidden="true"></i> Envoyer un fichier
+                    </div>
+                    <div class="tool-btn">
+                        <i class="ti ti-video" aria-hidden="true"></i> Vidéo
+                    </div>
+                    <div class="tool-btn">
+                        <i class="ti ti-user-plus" aria-hidden="true"></i> Inviter
+                    </div>
+                </div>
+
+                <div class="chat-partner-bar">
+                    <div class="partner-avatar">t1</div>
+                    <div>
+                        <div class="partner-name">Test1 </div>
+                        <div class="partner-status">
+                            <span class="dot dot-online" style="width:6px;height:6px;"></span> En ligne
+                        </div>
+                        <div class="partner-mood">"Heureux que signal soit passé :)"</div>
+                    </div>
+                </div>
+                <div class="messages-area" id="messages">
+                    <div class="chat-divider">La conversation a commencé à 14:27</div>
+
+                    <div class="msg-row">
+                        <div class="msg-header">
+                            <span class="msg-author them">Test1 :</span>
+                            <span class="msg-time-inline">(14:28)</span>
+                        </div>
+                        <div class="msg-text">Salut mon rheys ! bien ou ?</div>
+                    </div>
+
+                    <div class="msg-row">
+                        <div class="msg-header">
+                            <span class="msg-author me">Maim :</span>
+                            <span class="msg-time-inline">(14:29)</span>
+                        </div>
+                        <div class="msg-text">wola ouais c'est qui ton ex déjà</div>
+                    </div>
+                    <div class="msg-row">
+                        <div class="msg-header">
+                            <span class="msg-author them">Test1 dit :</span>
+                            <span class="msg-time-inline">(14:32)</span>
+                        </div>
+                        <div class="msg-text">nolwen :)</div>
+                    </div>
+
+                    <div class="typing-notice">Test1 est en train d'écrire...</div>
+
+                </div>
+                <div class="input-section">
+                    <div class="input-toolbar">
+                        <i class="ti ti-bold" aria-hidden="true"></i>
+                        <i class="ti ti-italic" aria-hidden="true"></i>
+                        <i class="ti ti-underline" aria-hidden="true"></i>
+                        <div class="sep"></div>
+                        <i class="ti ti-typography" aria-hidden="true"></i>
+                        <i class="ti ti-palette" aria-hidden="true"></i>
+                        <div class="sep"></div>
+                        <i class="ti ti-mood-smile" aria-hidden="true"></i>
+                        <i class="ti ti-paperclip" aria-hidden="true"></i>
+                    </div>
+                    <textarea class="input-box" placeholder="Écrivez votre message ici..."></textarea>
+                    <div class="send-row">
+                        <span class="hint-text">Appuyez sur Entrée pour envoyer</span>
+                        <button class="nudge-btn">Secouer !</button>
+                        <button class="send-btn">Envoyer</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="win-statusbar">
+            <span>Connecté en tant que : Maxdrk</span>
+            <span>3 contacts en ligne</span>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

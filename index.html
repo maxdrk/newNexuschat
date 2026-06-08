@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexuschat</title>
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <h1>Nexuschat</h1>
+    <img src="assets/logo.png" class="logo">
+
+    <form onsubmit="Login(this); return false">
+        <label for="mail">Email</label>
+        <input type="text" id="mail" placeholder="Votre email">
+
+        <label for="mdp">Mot de passe</label>
+        <input type="password" id="mdp" placeholder="Votre mot de passe">
+        <label for="" id="message"></label>
+        <button type="submit">Se connecter</button>
+
+    </form>
+
+    <script src="js/api.js"></script>
+</body>
+
+</html>

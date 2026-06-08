@@ -1,0 +1,517 @@
+ * {
+     box-sizing: border-box;
+     margin: 0;
+     padding: 0;
+     font-family: 'Trebuchet MS', Arial, sans-serif;
+ }
+ 
+ body {
+     background: #B8D0F0;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     min-height: 100vh;
+ }
+ /* ── Fenêtre principale ── */
+ 
+ .msn-window {
+     width: 100%;
+     height: 100%;
+     border: 2px solid #003580;
+     display: flex;
+     flex-direction: column;
+     background: #fff;
+ }
+ /* Barre de titre de la fenêtre */
+ 
+ .win-titlebar {
+     background: #0A4EA0;
+     color: #fff;
+     font-size: 12px;
+     font-weight: 500;
+     padding: 5px 8px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     user-select: none;
+ }
+ 
+ .win-titlebar-left {
+     display: flex;
+     align-items: center;
+     gap: 6px;
+ }
+ 
+ .win-controls {
+     display: flex;
+     gap: 4px;
+ }
+ 
+ .win-btn {
+     width: 16px;
+     height: 14px;
+     background: #D0E4FF;
+     border: 1px solid #7BA7D8;
+     font-size: 9px;
+     color: #003580;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     cursor: pointer;
+ }
+ 
+ .win-btn:hover {
+     background: #B0CCF0;
+ }
+ /* ── Layout principal ── */
+ 
+ .msn-body {
+     display: flex;
+     height: 540px;
+ }
+ /* ── Panneau contacts ── */
+ 
+ .contact-panel {
+     width: 210px;
+     background: #ECF4FF;
+     border-right: 2px solid #003580;
+     display: flex;
+     flex-direction: column;
+     flex-shrink: 0;
+ }
+ 
+ .my-profile {
+     background: #D0E4FF;
+     border-bottom: 1px solid #7BA7D8;
+     padding: 8px;
+ }
+ 
+ .profile-row {
+     display: flex;
+     align-items: center;
+     gap: 8px;
+ }
+ 
+ .my-avatar {
+     width: 38px;
+     height: 38px;
+     border: 2px solid #0A4EA0;
+     border-radius: 3px;
+     background: #fff;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 12px;
+     font-weight: 500;
+     color: #0A4EA0;
+     flex-shrink: 0;
+ }
+ 
+ .my-name {
+     font-size: 12px;
+     font-weight: 500;
+     color: #003580;
+ }
+ 
+ .my-status {
+     font-size: 10px;
+     color: #0A4EA0;
+     display: flex;
+     align-items: center;
+     gap: 3px;
+ }
+ 
+ .my-mood {
+     font-size: 10px;
+     color: #5F5E5A;
+     font-style: italic;
+     margin-top: 5px;
+ }
+ /* Barre de statut */
+ 
+ .status-bar {
+     background: #D0E4FF;
+     border-bottom: 1px solid #7BA7D8;
+     padding: 4px 8px;
+     display: flex;
+     align-items: center;
+     gap: 6px;
+ }
+ 
+ .status-bar select {
+     font-size: 11px;
+     border: 1px solid #7BA7D8;
+     background: #fff;
+     color: #003580;
+     padding: 1px 4px;
+ }
+ /* Groupes et contacts */
+ 
+ .group-title {
+     font-size: 11px;
+     font-weight: 500;
+     color: #003580;
+     padding: 5px 8px 3px;
+     background: #D0E4FF;
+     border-bottom: 1px solid #7BA7D8;
+     border-top: 1px solid #7BA7D8;
+     display: flex;
+     align-items: center;
+     gap: 4px;
+     cursor: pointer;
+     user-select: none;
+ }
+ 
+ .contact-item {
+     display: flex;
+     align-items: center;
+     gap: 6px;
+     padding: 4px 8px;
+     cursor: pointer;
+     border-bottom: 1px solid #C5D9F0;
+ }
+ 
+ .contact-item:hover {
+     background: #C5D9F0;
+ }
+ 
+ .contact-item.active {
+     background: #B0CCF0;
+ }
+ 
+ .contact-item.offline {
+     opacity: 0.55;
+ }
+ 
+ .c-avatar {
+     width: 28px;
+     height: 28px;
+     border: 1px solid #7BA7D8;
+     border-radius: 3px;
+     background: #fff;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 10px;
+     font-weight: 500;
+     flex-shrink: 0;
+ }
+ 
+ .av-blue {
+     color: #0A4EA0;
+ }
+ 
+ .av-red {
+     color: #A32D2D;
+ }
+ 
+ .av-green {
+     color: #27500A;
+ }
+ 
+ .av-gray {
+     color: #5F5E5A;
+ }
+ 
+ .c-info {
+     flex: 1;
+     min-width: 0;
+ }
+ 
+ .c-name {
+     font-size: 12px;
+     color: #003580;
+     font-weight: 500;
+ }
+ 
+ .c-msg {
+     font-size: 10px;
+     color: #5F5E5A;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+ }
+ /* Points de statut */
+ 
+ .dot {
+     width: 8px;
+     height: 8px;
+     border-radius: 50%;
+     flex-shrink: 0;
+ }
+ 
+ .dot-online {
+     background: #22c55e;
+ }
+ 
+ .dot-away {
+     background: #EF9F27;
+ }
+ 
+ .dot-busy {
+     background: #E24B4A;
+ }
+ 
+ .dot-off {
+     background: #B4B2A9;
+ }
+ /* Barre du bas du panneau */
+ 
+ .panel-footer {
+     margin-top: auto;
+     background: #D0E4FF;
+     border-top: 1px solid #7BA7D8;
+     padding: 5px 8px;
+     display: flex;
+     gap: 8px;
+     justify-content: center;
+ }
+ 
+ .panel-footer i {
+     font-size: 16px;
+     color: #003580;
+     cursor: pointer;
+ }
+ 
+ .panel-footer i:hover {
+     color: #0A4EA0;
+ }
+ /* ── Zone de chat ── */
+ 
+ .chat-area {
+     flex: 1;
+     display: flex;
+     flex-direction: column;
+ }
+ 
+ .chat-toolbar {
+     background: #D0E4FF;
+     border-bottom: 1px solid #7BA7D8;
+     padding: 3px 8px;
+     display: flex;
+     gap: 2px;
+     align-items: center;
+ }
+ 
+ .tool-btn {
+     font-size: 11px;
+     color: #003580;
+     cursor: pointer;
+     padding: 2px 6px;
+     border: 1px solid transparent;
+     display: flex;
+     align-items: center;
+     gap: 3px;
+ }
+ 
+ .tool-btn:hover {
+     border-color: #7BA7D8;
+     background: #B0CCF0;
+ }
+ 
+ .tool-btn i {
+     font-size: 13px;
+ }
+ /* Barre info du contact */
+ 
+ .chat-partner-bar {
+     background: #ECF4FF;
+     border-bottom: 1px solid #7BA7D8;
+     padding: 8px 10px;
+     display: flex;
+     align-items: center;
+     gap: 10px;
+ }
+ 
+ .partner-avatar {
+     width: 42px;
+     height: 42px;
+     border: 2px solid #0A4EA0;
+     border-radius: 3px;
+     background: #fff;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 14px;
+     font-weight: 500;
+     color: #0A4EA0;
+     flex-shrink: 0;
+ }
+ 
+ .partner-name {
+     font-size: 13px;
+     font-weight: 500;
+     color: #003580;
+ }
+ 
+ .partner-mood {
+     font-size: 11px;
+     color: #5F5E5A;
+     font-style: italic;
+ }
+ 
+ .partner-status {
+     font-size: 11px;
+     color: #22c55e;
+     display: flex;
+     align-items: center;
+     gap: 4px;
+ }
+ /* Zone messages */
+ 
+ .messages-area {
+     flex: 1;
+     padding: 8px 10px;
+     overflow-y: auto;
+     background: #fff;
+     display: flex;
+     flex-direction: column;
+     gap: 5px;
+ }
+ 
+ .msg-row {
+     display: flex;
+     flex-direction: column;
+ }
+ 
+ .msg-header {
+     display: flex;
+     align-items: baseline;
+     gap: 6px;
+ }
+ 
+ .msg-author {
+     font-size: 12px;
+     font-weight: 500;
+ }
+ 
+ .msg-author.me {
+     color: #A32D2D;
+ }
+ 
+ .msg-author.them {
+     color: #0A4EA0;
+ }
+ 
+ .msg-time-inline {
+     font-size: 10px;
+     color: #888780;
+ }
+ 
+ .msg-text {
+     font-size: 12px;
+     color: #2C2C2A;
+     line-height: 1.5;
+     padding-left: 2px;
+ }
+ 
+ .chat-divider {
+     font-size: 10px;
+     color: #888780;
+     text-align: center;
+     border-top: 1px solid #D3D1C7;
+     padding-top: 4px;
+     margin: 3px 0;
+ }
+ 
+ .typing-notice {
+     font-size: 10px;
+     color: #0A4EA0;
+     font-style: italic;
+ }
+ /* Zone de saisie */
+ 
+ .input-section {
+     border-top: 2px solid #7BA7D8;
+ }
+ 
+ .input-toolbar {
+     background: #D0E4FF;
+     padding: 3px 8px;
+     display: flex;
+     gap: 6px;
+     align-items: center;
+     border-bottom: 1px solid #7BA7D8;
+ }
+ 
+ .input-toolbar i {
+     font-size: 15px;
+     color: #003580;
+     cursor: pointer;
+ }
+ 
+ .input-toolbar i:hover {
+     color: #0A4EA0;
+ }
+ 
+ .sep {
+     border-left: 1px solid #7BA7D8;
+     height: 14px;
+     margin: 0 2px;
+ }
+ 
+ .input-box {
+     width: 100%;
+     padding: 6px 10px;
+     min-height: 64px;
+     font-size: 12px;
+     color: #2C2C2A;
+     border: none;
+     outline: none;
+     resize: none;
+     font-family: 'Trebuchet MS', Arial, sans-serif;
+     background: #fff;
+ }
+ 
+ .send-row {
+     background: #ECF4FF;
+     padding: 4px 8px;
+     display: flex;
+     justify-content: flex-end;
+     align-items: center;
+     gap: 8px;
+     border-top: 1px solid #7BA7D8;
+ }
+ 
+ .hint-text {
+     font-size: 10px;
+     color: #888780;
+ }
+ 
+ .nudge-btn {
+     font-size: 11px;
+     padding: 3px 10px;
+     background: #FFF3C4;
+     border: 1px solid #BA7517;
+     color: #633806;
+     cursor: pointer;
+ }
+ 
+ .nudge-btn:hover {
+     background: #FAC775;
+ }
+ 
+ .send-btn {
+     font-size: 11px;
+     padding: 3px 14px;
+     background: #D0E4FF;
+     border: 1px solid #7BA7D8;
+     color: #003580;
+     cursor: pointer;
+     font-weight: 500;
+ }
+ 
+ .send-btn:hover {
+     background: #B0CCF0;
+ }
+ /* Barre de statut Windows en bas */
+ 
+ .win-statusbar {
+     background: #D0E4FF;
+     border-top: 1px solid #7BA7D8;
+     padding: 2px 8px;
+     font-size: 10px;
+     color: #003580;
+     display: flex;
+     justify-content: space-between;
+ }
