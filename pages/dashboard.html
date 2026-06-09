@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusChat--Messagerie</title>
+    <title>NexusChat -- Messagerie</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="icon" href="../assets/logo.png">
 </head>
 
 <body onload="InitPage()">
@@ -84,6 +86,8 @@
                     <i class="ti ti-settings" aria-label="Paramètres"></i>
                     <i class="ti ti-bell" aria-label="Notifications"></i>
                     <i class="ti ti-help" aria-label="Aide"></i>
+                    <i class="ti ti-logout" aria-label="Deconnexion" onclick="window.location.href = '../index.html'"></i>
+
                 </div>
             </div>
             <div class="chat-area">
@@ -163,14 +167,14 @@
 
             </div>
         </div>
-        <div class="win-statusbar">
-            <span>Connecté en tant que : Maxdrk</span>
-            <span>3 contacts en ligne</span>
+        <div class="win-statusbar" id="footPseudo">
+            <span>Connecté en tant que : </span>
+            <!--<span>3 contacts en ligne</span>-->
         </div>
 
     </div>
     <script src="../js/api.js"></script>
-    <script src="../js/status.js"></script>
+    <script src="../js/profile.js"></script>
 </body>
 
 </html>

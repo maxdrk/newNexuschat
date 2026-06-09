@@ -12,3 +12,8 @@ function changeStatus() {
     const dotClass = dots[statusBox] || "dot-online"
     statusDiv.innerHTML = `<span class="dot ${dotClass}"></span> ${statusBox}`
 }
+
+function loadPseudo() {
+    let footerName = document.getElementById("footPseudo")
+    footerName.innerHTML = `<span>Connecté en tant que : ${localStorage.getItem('username')} </span>`
+}

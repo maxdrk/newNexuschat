@@ -17,6 +17,7 @@ function InitPage() {
         }
     }
     xhr.send(JSON.stringify({ id: idUser }))
+    loadPseudo()
 }
 
 function Login(form) {
@@ -36,12 +37,14 @@ function Login(form) {
                 idUser = result.idUser
                 localStorage.setItem('idUser', result.idUser)
                 message.innerHTML = 'connexion réussie'
+                message.classList.remove('messagePasOk')
                 message.classList.add('messageOk')
-                setTimeout(() => { window.location.href = "../pages/dashboard.html" }, 2000);
+                setTimeout(() => { window.location.href = "../pages/loading.html" }, 2000);
 
 
             } else {
                 message.innerHTML = 'Email ou mot de passe incorrects'
+                message.classList.remove("messageOk")
                 message.classList.add("messagePasOk")
 
             }

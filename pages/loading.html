@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>NexusChat — Chargement</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/loading.css">
+</head>
+
+<body onload="waitForData()">
+    <div class="loading-window">
+        <div class="win-titlebar">
+            <div class="win-titlebar-left">NexusChat — Chargement</div>
+        </div>
+        <div class="loading-body">
+            <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGdzdXZ0YnduZG1jZGF0dTN6bHN6ZzRxMHU1cGh0djN3eGNvc3AzYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pY8jLmZw0ElqvVeRH4/giphy.gif" alt="" width="80">
+            <p class="loading-text" id="loadingText">Connexion en cours...</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/api.js"></script>
+    <script src="../js/loading.js"></script>
+</body>
+
+</html>

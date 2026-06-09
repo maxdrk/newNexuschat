@@ -1,0 +1,146 @@
+:root {
+    /* Couleurs principales */
+    --color-primary: #003580;
+    --color-primary-light: #0A4EA0;
+    --color-border: #7BA7D8;
+    --color-bg-page: #B8D0F0;
+    --color-bg-window: #ECF4FF;
+    --color-bg-panel: #D0E4FF;
+    --color-bg-active: #B0CCF0;
+    --color-bg-hover: #C5D9F0;
+    --color-bg-white: #ffffff;
+    /* Texte */
+    --color-text-primary: #003580;
+    --color-text-secondary: #5F5E5A;
+    --color-text-muted: #888780;
+    --color-text-dark: #2C2C2A;
+    --color-text-me: #A32D2D;
+    /* Statuts */
+    --color-online: #22c55e;
+    --color-away: #EF9F27;
+    --color-busy: #E24B4A;
+    --color-offline: #B4B2A9;
+    /* Bordures Windows 98 style */
+    --border-light: #ffffff;
+    --border-dark: #808080;
+    --border-standard: 1px solid var(--color-border);
+    --border-primary: 2px solid var(--color-primary);
+    /* Polices */
+    --font-main: 'Trebuchet MS', Arial, sans-serif;
+    --font-vintage: 'Courier New', Courier, monospace;
+    /* Tailles de police */
+    --font-xs: 10px;
+    --font-sm: 11px;
+    --font-md: 12px;
+    --font-base: 13px;
+    /* Effets */
+    --shadow-win98: 4px 4px 0px #000;
+    --radius-sm: 3px;
+}
+
+
+/* ── Reset ── */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-main);
+}
+
+
+/* ── Body ── */
+
+body {
+    background: var(--color-bg-page);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+
+/* ── Points de statut ── */
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.dot-online {
+    background: var(--color-online);
+}
+
+.dot-away {
+    background: var(--color-away);
+}
+
+.dot-busy {
+    background: var(--color-busy);
+}
+
+.dot-off {
+    background: var(--color-offline);
+}
+
+
+/* ── Boutons style Win98 ── */
+
+.btn-win98 {
+    padding: 6px 12px;
+    border-top: 2px solid var(--border-light);
+    border-left: 2px solid var(--border-light);
+    border-right: 2px solid var(--border-dark);
+    border-bottom: 2px solid var(--border-dark);
+    background: var(--color-bg-panel);
+    color: var(--color-text-primary);
+    font-size: var(--font-sm);
+    font-family: var(--font-vintage);
+    cursor: pointer;
+}
+
+.btn-win98:hover {
+    background: #bfbbaf;
+}
+
+.btn-win98:active {
+    border-top: 2px solid var(--border-dark);
+    border-left: 2px solid var(--border-dark);
+    border-right: 2px solid var(--border-light);
+    border-bottom: 2px solid var(--border-light);
+}
+
+
+/* ── Input style Win98 ── */
+
+.input-win98 {
+    padding: 4px 6px;
+    border-top: 2px solid var(--border-dark);
+    border-left: 2px solid var(--border-dark);
+    border-right: 2px solid var(--border-light);
+    border-bottom: 2px solid var(--border-light);
+    background: var(--color-bg-white);
+    font-size: var(--font-md);
+    font-family: var(--font-vintage);
+}
+
+.input-win98:focus {
+    outline: 1px dotted #000;
+}
+
+
+/* ── Messages ── */
+
+.messageOk {
+    font-size: var(--font-xs);
+    color: green;
+    font-family: var(--font-vintage);
+}
+
+.messagePasOk {
+    font-size: var(--font-xs);
+    color: red;
+    font-family: var(--font-vintage);
+}

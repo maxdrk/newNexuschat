@@ -1,6 +1,7 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: rgb(105, 149, 168);
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #6b9ab8;
+    background-image: repeating-linear-gradient( 0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,66 +11,93 @@ body {
 }
 
 h1 {
-    color: #000000;
-    margin-bottom: 30px;
+    color: #000;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 22px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 0 #fff;
 }
 
 form {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 320px;
+    background: #d4d0c8;
+    padding: 20px 24px;
+    border-radius: 0;
+    border-top: 2px solid #ffffff;
+    border-left: 2px solid #ffffff;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+    width: 300px;
     display: flex;
     flex-direction: column;
+    box-shadow: 4px 4px 0px #000;
 }
 
 label {
-    margin-bottom: 6px;
+    margin-bottom: 4px;
+    font-size: 12px;
     font-weight: bold;
-    color: #333;
+    color: #000;
 }
 
 input {
-    padding: 10px;
-    margin-bottom: 18px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
+    padding: 4px 6px;
+    margin-bottom: 12px;
+    border-top: 2px solid #808080;
+    border-left: 2px solid #808080;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    background: #ffffff;
+    border-radius: 0;
+    font-size: 13px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 input:focus {
-    outline: none;
-    border-color: #3498db;
+    outline: 1px dotted #000;
 }
 
 button {
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    background-color: #3498db;
-    color: white;
-    font-size: 15px;
+    padding: 6px 12px;
+    border-top: 2px solid #ffffff;
+    border-left: 2px solid #ffffff;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+    background-color: #d4d0c8;
+    color: #000;
+    font-size: 13px;
+    font-family: 'Courier New', Courier, monospace;
     cursor: pointer;
-    transition: background-color 0.2s;
+    margin-bottom: 6px;
 }
 
 button:hover {
-    background-color: #2980b9;
+    background-color: #bfbbaf;
+}
+
+button:active {
+    border-top: 2px solid #808080;
+    border-left: 2px solid #808080;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
 }
 
 .messageOk {
-    font-size: small;
+    font-size: 11px;
     color: green;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .messagePasOk {
-    font-size: small;
-    color: red
+    font-size: 11px;
+    color: red;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .logo {
-    width: 100px;
-    height: 100px;
-    margin: 10px;
+    width: 150px;
+    height: 150px;
+    margin: 8px;
+    image-rendering: pixelated;
 }
