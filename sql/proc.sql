@@ -49,3 +49,31 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+DELIMITER $$
+
+create procedure deleteUser(in vIdUser int)
+begin
+    declare vIdMail int;
+    select idMail into vIdMail
+    from users
+    where idUser = vIdUser;
+    delete from message
+    where fromUser = vIdUser or toUser = vIdUser;
+    delete from conversations
+    where fromUser = vIdUser or toUser = vIdUser;
+    delete from pseudo
+    where idUser = vIdUser;
+    delete from users
+    where idUser = vIdUser;
+    delete from mail
+    where idMail = vIdMail;
+end$$
+
+DELIMITER ;
+delimiter $$
+create procedure createDemande(in idDemandeur int,in idDemande int)
+begin 
+insert into demandes(fromUser,toUser) values(idDemandeur,idDemande)
+end$$
+delimiter;

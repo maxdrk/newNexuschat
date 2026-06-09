@@ -17,3 +17,12 @@ function loadPseudo() {
     let footerName = document.getElementById("footPseudo")
     footerName.innerHTML = `<span>Connecté en tant que : ${localStorage.getItem('username')} </span>`
 }
+
+function Initprofile() {
+    loadProfil()
+}
+
+function loadProfil() {
+    document.getElementById("profileUsername").innerHTML = localStorage.getItem('username')
+    document.getElementById("profileEmail").innerHTML = localStorage.getItem('userMail')
+}

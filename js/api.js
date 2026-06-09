@@ -39,7 +39,7 @@ function Login(form) {
                 message.innerHTML = 'connexion réussie'
                 message.classList.remove('messagePasOk')
                 message.classList.add('messageOk')
-                setTimeout(() => { window.location.href = "../pages/loading.html" }, 2000);
+                setTimeout(() => { window.location.href = "pages/loading.html" }, 2000);
 
 
             } else {

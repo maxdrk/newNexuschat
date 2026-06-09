@@ -51,3 +51,21 @@ create table if not exists conversations(
     foreign key (fromUser) references users(idUser) ,
     foreign key (toUser) references users(idUser) 
 );
+
+
+create table if not exists contacts(
+    idUser1 int,
+    idUser2 int,
+    RelationDate timestamp default CURRENT_TIMESTAMP,
+    foreign key (idUser1) references users(idUser),
+     foreign key (idUser2) references users(idUser)
+);
+
+create table if not exists demandes(
+    idDemande int primary key auto_increment,
+    fromUser int,
+    toUser int,
+    statusD char(10),
+    foreign key fromUser references users(idUser),
+     foreign key toUser references users(idUser)
+);

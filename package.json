@@ -1,0 +1,25 @@
+{
+    "name": "newnexuschat",
+    "version": "1.0.0",
+    "description": "",
+    "main": "js/main.js",
+    "scripts": {
+        "start": "electron .",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/maxdrk/newNexuschat.git"
+    },
+    "keywords": [],
+    "author": "Maxime Derick",
+    "license": "ISC",
+    "type": "commonjs",
+    "bugs": {
+        "url": "https://github.com/maxdrk/newNexuschat/issues"
+    },
+    "homepage": "https://github.com/maxdrk/newNexuschat#readme",
+    "devDependencies": {
+        "electron": "^42.4.0"
+    }
+}

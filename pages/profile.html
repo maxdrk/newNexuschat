@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusChat -- Profil</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/profile.css">
+    <link rel="icon" href="../assets/logo.png">
+</head>
+
+<body onload="Initprofile()">
+    <div class="profile-window">
+
+        <div class="win-titlebar">
+            <div class="win-titlebar-left">
+                <i class="ti ti-user-circle" aria-hidden="true"></i> NexusChat — Mon Profil
+            </div>
+            <div class="win-titlebar-right">
+                <button class="win-btn" onclick="window.location.href='dashboard.html'">✕</button>
+            </div>
+        </div>
+
+        <div class="profile-body">
+
+            <!-- Carte avatar + infos principales -->
+            <div class="profile-card">
+                <div class="profile-avatar" id="profileAvatar">??</div>
+                <div class="profile-main-info">
+                    <div class="profile-username" id="profileUsername">Chargement...</div>
+                    <div class="profile-email">
+                        <i class="ti ti-mail" aria-hidden="true"></i>
+                        <span id="profileEmail">--</span>
+                    </div>
+                    <div class="profile-status-row">
+                        <span class="dot dot-online" id="profileStatusDot"></span>
+                        <span id="profileStatusLabel">En ligne</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message d'humeur -->
+            <div class="profile-section">
+                <div class="section-title">
+                    <i class="ti ti-message-circle" aria-hidden="true"></i> Message personnel
+                </div>
+                <div class="profile-mood" id="profileMood">"..."</div>
+            </div>
+
+            <!-- Informations du compte -->
+            <div class="profile-section">
+                <div class="section-title">
+                    <i class="ti ti-info-circle" aria-hidden="true"></i> Informations du compte
+                </div>
+                <div class="info-grid">
+                    <div class="info-row">
+                        <span class="info-label">Identifiant</span>
+                        <span class="info-value" id="profileId">--</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Pseudo</span>
+                        <span class="info-value" id="profilePseudo">--</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Adresse mail</span>
+                        <span class="info-value" id="profileEmailDetail">--</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Mail vérifié</span>
+                        <span class="info-value" id="profileMailVerify">--</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Membre depuis</span>
+                        <span class="info-value" id="profileSince">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="profile-actions">
+                <button class="btn-win98" onclick="window.location.href='dashboard.html'">
+                    <i class="ti ti-arrow-left" aria-hidden="true"></i> Retour
+                </button>
+                <button class="btn-win98 btn-danger" id="btnDeleteAccount">
+                    <i class="ti ti-trash" aria-hidden="true"></i> Supprimer le compte
+                </button>
+            </div>
+
+        </div>
+
+        <div class="win-statusbar">
+            <span>Connecté en tant que : </span>
+            <span id="profileStatusBar">--</span>
+        </div>
+
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/profile.js"></script>
+</body>
+
+</html>
