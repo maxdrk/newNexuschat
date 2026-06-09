@@ -1,15 +1,29 @@
-delimiter$$
-create procedure createUser(in vusername varchar(20),in email varchar(254),in vpassword varchar(30))
-begin  
-declare vidMail int;
-declare vidUser int;
-insert into mail (mail,mailVerify) values (email,false);
-set vidMail = last_insert_id();
-insert into users(idMail,`password`) values (vidMail,vpassword);
-set vIdUser = last_insert_id();
-insert into pseudo(iduser,username) values (vIdUser,vusername);
-end$$
-delimiter;
+DELIMITER $$
+
+CREATE PROCEDURE createUser(
+    IN vusername VARCHAR(20),
+    IN vemail VARCHAR(254),
+    IN vpassword VARCHAR(30)
+)
+BEGIN
+    DECLARE vidMail INT;
+    DECLARE vidUser INT;
+
+    INSERT INTO mail (mail, mailVerify)
+    VALUES (vemail, FALSE);
+
+    SET vidMail = LAST_INSERT_ID();
+
+    INSERT INTO users (idMail, password)
+    VALUES (vidMail, vpassword);
+
+    SET vidUser = LAST_INSERT_ID();
+
+    INSERT INTO pseudo (idUser, username)
+    VALUES (vidUser, vusername);
+END$$
+
+DELIMITER ;
 
 
 delimiter$$

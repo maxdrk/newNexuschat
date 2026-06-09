@@ -27,6 +27,9 @@ def connexion(mode):
         cursorclass=pymysql.cursors.DictCursor
     )
 
+class userId(BaseModel):
+    id : int
+
 class UserCreate(BaseModel):
     username: str
     email: str
@@ -45,17 +48,20 @@ def createUser(user: UserCreate):
             conn.commit() 
         conn.close()
         return {"message": "Utilisateur créé"}
-    except pymysql.err.IntegrityError:
-        raise HTTPException(status_code=400, detail="Email ou username déjà utilisé")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except pymysql.err.IntegrityError as e:
+        if 'email' in str(e).lower():
+            raise HTTPException(status_code=400, detail="Email déjà utilisé")
+        elif 'username' in str(e).lower():
+            raise HTTPException(status_code=400, detail="Username déjà utilisé")
+        else:
+            raise HTTPException(status_code=400, detail="Email ou username déjà utilisé")
     
 @router.post('/getUser')
-def getUser(id: int):
+def getUser(data: userId):
     try:
         conn = connexion("read")  
         with conn.cursor() as cursor:
-            cursor.execute('CALL getUser(%s)', [id])  
+            cursor.execute('CALL getUser(%s)', [data.id])  
             result = cursor.fetchone()  
         conn.close()
         return result
@@ -75,7 +81,8 @@ def login(user : UserLogin):
         if  not result:
             return False
         else:
-            return True
+            print(result)
+            return {"success" : True,"idUser" : result['idUser']}
     except HTTPException:
         raise   
 

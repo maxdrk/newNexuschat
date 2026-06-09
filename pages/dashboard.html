@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusChat</title>
+    <title>NexusChat--Messagerie</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 
-<body>
+<body onload="InitPage()">
     <div class="msn-window">
         <div class="win-titlebar">
             <div class="win-titlebar-left">
@@ -22,8 +22,10 @@
                     <div class="profile-row">
                         <div class="my-avatar">MA</div>
                         <div>
-                            <div class="my-name">MAIM</div>
-                            <div class="my-status">
+                            <div class="my-name" id="username"></div>
+                            <div class="my-mail" id="usermail" style="font-size:11px; color:#666;"></div>
+
+                            <div class="my-status" id="mystatus">
                                 <span class="dot dot-online"></span> En ligne
                             </div>
                         </div>
@@ -32,12 +34,12 @@
                 </div>
                 <div class="status-bar">
                     <i class="ti ti-user" style="font-size:13px;color:#003580;" aria-hidden="true"></i>
-                    <select>
-                    <option>En ligne</option>
-                    <option>Absent(e)</option>
-                    <option>Occupé(e)</option>
-                    <option>Hors ligne</option>
-                </select>
+                    <select id="statusSelect" onchange="changeStatus()">
+        <option>En ligne</option>
+        <option>Absent(e)</option>
+        <option>Occupé(e)</option>
+        <option>Hors ligne</option>
+    </select>
                 </div>
                 <div class="group-title">
                     <i class="ti ti-chevron-down" style="font-size:12px;" aria-hidden="true"></i> En ligne (3)
@@ -167,7 +169,8 @@
         </div>
 
     </div>
-
+    <script src="../js/api.js"></script>
+    <script src="../js/status.js"></script>
 </body>
 
 </html>

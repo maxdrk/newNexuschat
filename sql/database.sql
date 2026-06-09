@@ -41,3 +41,13 @@ create table if not exists message(
     foreign key (fromUser) references pseudo(idUser),
     foreign key  (toUser) references pseudo(idUser)
 );
+
+
+create table if not exists conversations(
+    convId int primary key auto_increment,
+    fromUser int, 
+    toUser int,
+    createdAt timestamp default CURRENT_TIMESTAMP,
+    foreign key (fromUser) references users(idUser) ,
+    foreign key (toUser) references users(idUser) 
+);

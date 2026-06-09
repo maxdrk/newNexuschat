@@ -72,7 +72,7 @@
  /* ── Panneau contacts ── */
  
  .contact-panel {
-     width: 210px;
+     width: 230px;
      background: #ECF4FF;
      border-right: 2px solid #003580;
      display: flex;
@@ -83,7 +83,7 @@
  .my-profile {
      background: #D0E4FF;
      border-bottom: 1px solid #7BA7D8;
-     padding: 8px;
+     padding: 20px;
  }
  
  .profile-row {

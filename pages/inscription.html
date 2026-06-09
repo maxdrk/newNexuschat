@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexushchat--Inscription</title>
+    <link rel="icon" href="../assets/logo.png">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body>
+    <H1>
+        Inscription
+    </H1>
+    <img src="../assets/logo.png" class="logo">
+    <form onsubmit="createUser(this); return false">
+        <label for="pseudo">Votre pseudo</label>
+        <input type="text" id="pseudo" placeholder="Votre pseudo">
+        <label for="mail">Email</label>
+        <input type="text" id="mail" placeholder="Votre email">
+        <label for="mdp">Mot de passe</label>
+        <input type="password" id="mdp" placeholder="Votre mot de passe">
+        <label for="" id="message"></label>
+        <button type="submit">S'inscrire</button>
+        <button type='button' onclick="window.location.href = '../index.html'" style="margin: 10px;">Déjà inscrit ?</button>
+    </form>
+
+</body>
+
+<script src="../js/api.js"></script>
+
+</html>
