@@ -43,53 +43,18 @@
         <option>Hors ligne</option>
     </select>
                 </div>
-                <div class="group-title">
-                    <i class="ti ti-chevron-down" style="font-size:12px;" aria-hidden="true"></i> En ligne (3)
-                </div>
-                <div class="contact-item active">
-                    <span class="dot dot-online"></span>
-                    <div class="c-avatar av-blue">T1</div>
-                    <div class="c-info">
-                        <div class="c-name">Test1</div>
-                        <div class="c-msg">message random</div>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <span class="dot dot-away"></span>
-                    <div class="c-avatar av-green">t2</div>
-                    <div class="c-info">
-                        <div class="c-name">test2 </div>
-                        <div class="c-msg">Absent(e)</div>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <span class="dot dot-busy"></span>
-                    <div class="c-avatar av-red">T3</div>
-                    <div class="c-info">
-                        <div class="c-name">Test3</div>
-                        <div class="c-msg">Occupé(e)</div>
-                    </div>
-                </div>
-                <div class="group-title">
-                    <i class="ti ti-chevron-down" style="font-size:12px;" aria-hidden="true"></i> Hors ligne (1)
-                </div>
-                <div class="contact-item offline">
-                    <span class="dot dot-off"></span>
-                    <div class="c-avatar av-gray">T4</div>
-                    <div class="c-info">
-                        <div class="c-name">Test4</div>
-                        <div class="c-msg">Hors ligne</div>
-                    </div>
-                </div>
+                <div id="contactList"></div>
                 <div class="panel-footer">
                     <i class="ti ti-user" aria-label="Profil" onclick="window.location.href = 'profile.html'"></i>
-                    <i class="ti ti-user-plus" aria-label="Ajouter un contact"></i>
+                    <i class="ti ti-user-plus" aria-label="Ajouter un contact" onclick="loadForm()"></i>
                     <i class="ti ti-settings" aria-label="Paramètres"></i>
-                    <i class="ti ti-bell" aria-label="Notifications"></i>
+                    <i class="ti ti-bell" aria-label="Notifications" onclick="loadNotifications()"></i>
                     <i class="ti ti-help" aria-label="Aide"></i>
                     <i class="ti ti-logout" aria-label="Deconnexion" onclick="window.location.href = '../index.html'"></i>
-
                 </div>
+
+                <div id="selectUser" style="display:none;"></div>
+                <div id="notifications" style="display:none;"></div>
             </div>
             <div class="chat-area">
                 <div class="chat-toolbar">
@@ -175,6 +140,7 @@
 
     </div>
     <script src="../js/api.js"></script>
+    <script src="../js/utilisateurs"></script>
     <script src="../js/profile.js"></script>
 </body>
 

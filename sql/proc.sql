@@ -77,3 +77,31 @@ begin
 insert into demandes(fromUser,toUser) values(idDemandeur,idDemande)
 end$$
 delimiter;
+
+delimite $$
+
+create procedure selectUser(in pseudo varchar(25))
+select U.idUser as id , P.username as pseudo from users U
+join pseudo P on U.idUser = P.idUser
+where P.username = pseudo
+end
+delimiter $$
+
+DELIMITER $$
+CREATE PROCEDURE getContacts(IN inIdUser INT)
+BEGIN 
+    SELECT 
+        CASE WHEN C.idUser1 = inIdUser THEN P2.username
+             ELSE P1.username
+        END AS contact
+    FROM contacts C
+    JOIN pseudo P1 ON C.idUser1 = P1.idUser
+    JOIN pseudo P2 ON C.idUser2 = P2.idUser
+    WHERE C.idUser1 = inIdUser OR C.idUser2 = inIdUser;
+END$$
+DELIMITER ;
+
+CREATE PROCEDURE `createDemande`(in idDemandeur int,in idDemande int,in vstatus char(10))
+begin 
+insert into demandes(fromUser,toUser,statusD) values(idDemandeur,idDemande,vstatus);
+end

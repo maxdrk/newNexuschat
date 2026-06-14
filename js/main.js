@@ -1,9 +1,13 @@
 const { app, BrowserWindow } = require('electron/main')
-
+const path = require('path')
+const iconPath = path.join(__dirname, '../assets/logo.ico')
+console.log(iconPath)
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 800,
-        height: 800
+        height: 800,
+        icon: iconPath
+
     })
 
     win.loadFile('index.html')

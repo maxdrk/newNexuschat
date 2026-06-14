@@ -488,6 +488,146 @@
 }
 
 
+/* ── Panneau recherche contact ── */
+
+#selectUser {
+    position: absolute;
+    bottom: 36px;
+    left: 8px;
+    z-index: 100;
+}
+
+#notifications {
+    position: absolute;
+    bottom: 36px;
+    left: 8px;
+    z-index: 100;
+}
+
+.search-contact-panel {
+    width: 240px;
+    background: var(--color-bg-window);
+    border-top: 2px solid var(--border-light);
+    border-left: 2px solid var(--border-light);
+    border-right: 2px solid var(--border-dark);
+    border-bottom: 2px solid var(--border-dark);
+    box-shadow: var(--shadow-win98);
+}
+
+.search-contact-title {
+    background: linear-gradient(to right, var(--color-primary), var(--color-primary-light));
+    color: white;
+    padding: 3px 6px;
+    font-size: var(--font-sm);
+    font-family: var(--font-vintage);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    user-select: none;
+}
+
+.search-close {
+    margin-left: auto;
+    cursor: pointer;
+    font-size: 10px;
+    opacity: 0.8;
+}
+
+.search-close:hover {
+    opacity: 1;
+}
+
+.search-contact-body {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.search-contact-body .input-win98 {
+    width: 100%;
+}
+
+.search-results {
+    max-height: 160px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.search-result-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 4px;
+    background: var(--color-bg-panel);
+    border: 1px solid transparent;
+}
+
+.search-result-row:hover {
+    border-color: var(--color-border);
+    background: var(--color-bg-hover);
+}
+
+.search-result-name {
+    flex: 1;
+    font-size: var(--font-sm);
+    font-family: var(--font-vintage);
+    color: var(--color-text-dark);
+}
+
+.btn-add {
+    padding: 2px 6px;
+    font-size: var(--font-xs);
+}
+
+.search-empty {
+    font-size: var(--font-xs);
+    font-family: var(--font-vintage);
+    color: var(--color-text-muted);
+    text-align: center;
+    padding: 8px;
+}
+
+.notif-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 5px 6px;
+    background: var(--color-bg-panel);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.notif-row:last-child {
+    border-bottom: none;
+}
+
+.notif-text {
+    font-size: var(--font-xs);
+    font-family: var(--font-vintage);
+    color: var(--color-text-dark);
+    flex: 1;
+}
+
+.notif-actions {
+    display: flex;
+    gap: 3px;
+}
+
+.notif-actions .btn-win98 {
+    padding: 1px 6px;
+    font-size: var(--font-xs);
+}
+
+.notif-pending {
+    font-size: var(--font-xs);
+    font-family: var(--font-vintage);
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
 /* Barre de statut Windows en bas */
 
 .win-statusbar {

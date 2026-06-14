@@ -18,6 +18,21 @@ function InitPage() {
     }
     xhr.send(JSON.stringify({ id: idUser }))
     loadPseudo()
+    getContacts()
+}
+
+function getContacts() {
+    const idUser = parseInt(localStorage.getItem('idUser'))
+    const xhr = new XMLHttpRequest()
+    xhr.open("POST", "http://localhost:8000/users/getContacts")
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            const result = JSON.parse(xhr.responseText)
+            renderContacts(Array.isArray(result) ? result : [])
+        }
+    }
+    xhr.send(JSON.stringify({ id: idUser }))
 }
 
 function Login(form) {
@@ -76,4 +91,58 @@ function createUser(form) {
         }
     }
     xhr.send(JSON.stringify({ username: vusername, email: vmail, password: vmdp }))
+}
+
+function selectUser(query = '') {
+
+    const xhr = new XMLHttpRequest()
+    xhr.open("POST", "http://localhost:8000/users/selectUser")
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            const result = JSON.parse(xhr.responseText)
+            let idDestinataire = localStorage.setItem('idDestinataire', result.id)
+            renderSearchResults(Array.isArray(result) ? result : [result])
+        }
+    }
+    xhr.send(JSON.stringify({ nom: query }))
+}
+
+function getDemandes(callback) {
+    const idUser = parseInt(localStorage.getItem('idUser'))
+    const xhr = new XMLHttpRequest()
+    xhr.open("POST", "http://localhost:8000/users/getDemandes")
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            const result = JSON.parse(xhr.responseText)
+            let idConv = localStorage.setItem('idConv', result.idConv)
+            callback(Array.isArray(result) ? result : [result])
+        }
+    }
+    xhr.send(JSON.stringify({ id: idUser }))
+}
+
+function createDemande() {
+    const xhr = new XMLHttpRequest()
+    xhr.open("POST", "http://localhost:8000/users/createDemande")
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            const result = JSON.parse(xhr.responseText)
+            let idDestinataire = localStorage.setItem('idDestinataire', result.id)
+            renderSearchResults(Array.isArray(result) ? result : [result])
+        }
+    }
+    xhr.send(JSON.stringify({ idFrom: localStorage.getItem('idUser'), idTo: localStorage.getItem("idDestinaire") }))
+}
+
+function updateStatusDemande(idConv, status, callback) {
+    const xhr = new XMLHttpRequest()
+    xhr.open("POST", "http://localhost:8000/users/updateStatusDemande")
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.onload = function() {
+        if (xhr.status === 200 && callback) callback()
+    }
+    xhr.send(JSON.stringify({ status: status, idConv: idConv }))
 }
