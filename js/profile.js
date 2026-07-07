@@ -23,6 +23,8 @@ function Initprofile() {
 }
 
 function loadProfil() {
-    document.getElementById("profileUsername").innerHTML = localStorage.getItem('username')
+    const username = localStorage.getItem('username')
+    document.getElementById("profileUsername").innerHTML = username
     document.getElementById("profileEmail").innerHTML = localStorage.getItem('userMail')
+    setAvatar('profileAvatar', username)
 }

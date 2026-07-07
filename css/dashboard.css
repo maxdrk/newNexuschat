@@ -628,6 +628,31 @@
     font-style: italic;
 }
 
+/* ── Écran de bienvenue ── */
+
+.welcome-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--color-bg-white);
+    color: var(--color-text-muted);
+}
+
+.welcome-title {
+    font-size: 15px;
+    font-family: var(--font-vintage);
+    color: var(--color-text-primary);
+}
+
+.welcome-sub {
+    font-size: var(--font-sm);
+    font-family: var(--font-vintage);
+    color: var(--color-text-muted);
+}
+
 /* Barre de statut Windows en bas */
 
 .win-statusbar {

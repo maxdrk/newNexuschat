@@ -68,13 +68,15 @@ def createUser(user: UserCreate):
         else:
             raise HTTPException(status_code=400, detail="Email ou username déjà utilisé")
     
+
+
 @router.post('/getUser')
 def getUser(data: userId):
     try:
-        conn = connexion("read")  
+        conn = connexion("read")
         with conn.cursor() as cursor:
-            cursor.execute('CALL getUser(%s)', [data.id])  
-            result = cursor.fetchone()  
+            cursor.execute('CALL getUser(%s)', [data.id])
+            result = cursor.fetchone()
         conn.close()
         return result
     except pymysql.err.IntegrityError:

@@ -17,11 +17,10 @@ function renderContacts(contacts) {
     }
 
     const items = contacts.map(c => {
-        const initiales = c.contact.substring(0, 2).toUpperCase()
         return `
-            <div class="contact-item">
+            <div class="contact-item" onclick="openConversation(${c.idContact}, '${c.contact}')" style="cursor:pointer;">
                 <span class="dot dot-off"></span>
-                <div class="c-avatar av-blue">${initiales}</div>
+                <div class="c-avatar" style="overflow:hidden;"><img src="${getAvatar(c.contact)}" style="width:100%;height:100%;object-fit:cover;" alt="${c.contact}"></div>
                 <div class="c-info">
                     <div class="c-name">${c.contact}</div>
                     <div class="c-msg">Hors ligne</div>
@@ -88,12 +87,12 @@ function renderSearchResults(users) {
     const currentUser = localStorage.getItem('username')
 
     container.innerHTML = users
-        .filter(u => u.username !== currentUser)
+        .filter(u => u.pseudo !== currentUser)
         .map(u => `
             <div class="search-result-row">
-                <div class="c-avatar av-blue">${u.pseudo.substring(0, 2).toUpperCase()}</div>
+                <div class="c-avatar" style="overflow:hidden;"><img src="${getAvatar(u.pseudo)}" style="width:100%;height:100%;object-fit:cover;" alt="${u.pseudo}"></div>
                 <span class="search-result-name">${u.pseudo}</span>
-                <button class="btn-win98 btn-add" onclick="addContact(${u.idUser}, '${u.pseudo}')">
+                <button class="btn-win98 btn-add" onclick="addContact(${u.id}, '${u.pseudo}')">
                     <i class="ti ti-user-plus"></i> Ajouter
                 </button>
             </div>
@@ -102,7 +101,7 @@ function renderSearchResults(users) {
 
 function addContact(idUser, username) {
     console.log(`Ajout du contact : ${username} (id: ${idUser})`)
-    // à brancher sur l'API quand la route sera prête
+        // à brancher sur l'API quand la route sera prête
 }
 
 function loadNotifications() {
@@ -141,8 +140,8 @@ function renderNotifications(demandes) {
     const currentUser = localStorage.getItem('username')
 
     container.innerHTML = demandes.map(d => {
-        const isReceived = d.destinataire === currentUser
-        return `
+                const isReceived = d.destinataire === currentUser
+                return `
             <div class="notif-row">
                 <div class="notif-text">
                     ${isReceived

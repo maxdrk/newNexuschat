@@ -22,7 +22,7 @@
             <div class="contact-panel">
                 <div class="my-profile">
                     <div class="profile-row">
-                        <div class="my-avatar">MA</div>
+                        <div class="my-avatar" id="myAvatar"></div>
                         <div>
                             <div class="my-name" id="username"></div>
                             <div class="my-mail" id="usermail" style="font-size:11px; color:#666;"></div>
@@ -72,45 +72,21 @@
                     </div>
                 </div>
 
-                <div class="chat-partner-bar">
-                    <div class="partner-avatar">t1</div>
+                <div class="chat-partner-bar" id="partnerBar" style="display:none;">
+                    <div class="partner-avatar" id="partnerAvatar"></div>
                     <div>
-                        <div class="partner-name">Test1 </div>
+                        <div class="partner-name" id="partnerName"></div>
                         <div class="partner-status">
                             <span class="dot dot-online" style="width:6px;height:6px;"></span> En ligne
                         </div>
-                        <div class="partner-mood">"Heureux que signal soit passé :)"</div>
                     </div>
                 </div>
-                <div class="messages-area" id="messages">
-                    <div class="chat-divider">La conversation a commencé à 14:27</div>
-
-                    <div class="msg-row">
-                        <div class="msg-header">
-                            <span class="msg-author them">Test1 :</span>
-                            <span class="msg-time-inline">(14:28)</span>
-                        </div>
-                        <div class="msg-text">Salut mon rheys ! bien ou ?</div>
-                    </div>
-
-                    <div class="msg-row">
-                        <div class="msg-header">
-                            <span class="msg-author me">Maim :</span>
-                            <span class="msg-time-inline">(14:29)</span>
-                        </div>
-                        <div class="msg-text">wola ouais c'est qui ton ex déjà</div>
-                    </div>
-                    <div class="msg-row">
-                        <div class="msg-header">
-                            <span class="msg-author them">Test1 dit :</span>
-                            <span class="msg-time-inline">(14:32)</span>
-                        </div>
-                        <div class="msg-text">nolwen :)</div>
-                    </div>
-
-                    <div class="typing-notice">Test1 est en train d'écrire...</div>
-
+                <div class="welcome-screen" id="welcomeScreen">
+                    <i class="ti ti-messages" style="font-size:48px; color:var(--color-border);"></i>
+                    <div class="welcome-title">Bienvenue sur NexusChat</div>
+                    <div class="welcome-sub">Sélectionne un contact pour commencer à discuter</div>
                 </div>
+                <div class="messages-area" id="messages" style="display:none;"></div>
                 <div class="input-section">
                     <div class="input-toolbar">
                         <i class="ti ti-bold" aria-hidden="true"></i>
@@ -123,11 +99,11 @@
                         <i class="ti ti-mood-smile" aria-hidden="true"></i>
                         <i class="ti ti-paperclip" aria-hidden="true"></i>
                     </div>
-                    <textarea class="input-box" placeholder="Écrivez votre message ici..."></textarea>
+                    <textarea class="input-box" placeholder="Écrivez votre message ici..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"></textarea>
                     <div class="send-row">
-                        <span class="hint-text">Appuyez sur Entrée pour envoyer</span>
+                        <span class="hint-text">Entrée pour envoyer · Shift+Entrée pour sauter une ligne</span>
                         <button class="nudge-btn">Secouer !</button>
-                        <button class="send-btn">Envoyer</button>
+                        <button class="send-btn" onclick="sendMessage()">Envoyer</button>
                     </div>
                 </div>
 
@@ -139,8 +115,10 @@
         </div>
 
     </div>
+    <script src="../js/avatars.js"></script>
     <script src="../js/api.js"></script>
-    <script src="../js/utilisateurs"></script>
+    <script src="../js/utilisateurs.js"></script>
+    <script src="../js/chat.js"></script>
     <script src="../js/profile.js"></script>
 </body>
 

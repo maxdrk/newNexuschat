@@ -11,9 +11,11 @@ function InitPage() {
 
             localStorage.setItem('username', result.username)
             localStorage.setItem('userMail', result.mail)
+            if (result.avatar) localStorage.setItem('avatar', result.avatar)
 
             document.getElementById('username').innerHTML = result.username
             document.getElementById('usermail').innerHTML = result.mail
+            setAvatar('myAvatar', result.username)
         }
     }
     xhr.send(JSON.stringify({ id: idUser }))

@@ -101,7 +101,17 @@ BEGIN
 END$$
 DELIMITER ;
 
+delimiter $$
+
 CREATE PROCEDURE `createDemande`(in idDemandeur int,in idDemande int,in vstatus char(10))
 begin 
 insert into demandes(fromUser,toUser,statusD) values(idDemandeur,idDemande,vstatus);
-end
+end $$
+delimiter ;
+
+delimiter $$
+create procedure addContenu (in inContenu varchar(254), in inFromUser int,in inToUser int )
+begin
+INSERT INTO message (contenu, fromUser, toUser) VALUES (inContenu,inFromUser,inToUser);
+end $$
+delimiter ;
