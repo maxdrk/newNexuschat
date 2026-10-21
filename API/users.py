@@ -57,11 +57,13 @@ def createUser(user: UserCreate):
         conn = connexion('create')
         with conn.cursor() as cursor:  
             cursor.callproc('createUser', [user.username, user.email, user.password])  
+            cursor.execute('SELECT U.idUser FROM users U JOIN mail M ON M.idMail = U.idMail WHERE M.mail = %s', [user.email])
+            created = cursor.fetchone()
             conn.commit() 
         conn.close()
-        return {"message": "Utilisateur créé"}
+        return {"message": "Utilisateur créé", "idUser": created["idUser"]}
     except pymysql.err.IntegrityError as e:
-        if 'email' in str(e).lower():
+        if 'email' in str(e).lower() or 'mail' in str(e).lower():
             raise HTTPException(status_code=400, detail="Email déjà utilisé")
         elif 'username' in str(e).lower():
             raise HTTPException(status_code=400, detail="Username déjà utilisé")
@@ -136,7 +138,7 @@ def createDemande(user : demande):
             cursor.execute('call createDemande(%s,%s)', [user.idFrom, user.idTo])
         conn.commit()
         conn.close()
-        return {"message": "ok"}
+        return {"message": "ok", "idTo": user.idTo}
     except HTTPException:
         raise
     except pymysql.err.IntegrityError:
@@ -149,7 +151,16 @@ def getDemandes(user : userId):
     try:
         conn = connexion("read")
         with conn.cursor() as cursor:
-            cursor.execute('call getDemandes(%s)', [user.id])
+            cursor.execute('''
+                SELECT D.idDemande, D.fromUser AS idFrom, D.toUser AS idTo,
+                       P1.username AS expediteur, P2.username AS destinataire,
+                       D.statusD AS status
+                FROM demandes D
+                JOIN pseudo P1 ON P1.idUser = D.fromUser
+                JOIN pseudo P2 ON P2.idUser = D.toUser
+                WHERE D.fromUser = %s OR D.toUser = %s
+                ORDER BY D.createdAt DESC
+            ''', [user.id, user.id])
             result = cursor.fetchall()
         conn.close()
         if  not result:
@@ -171,7 +182,14 @@ def updateStatusDemande(user : updateStatusDemande):
     try:
         conn = connexion("create")
         with conn.cursor() as cursor:
-            cursor.execute('call updateStatusDemande(%s,%s)', [user.status, user.idConv])
+            cursor.execute('SELECT fromUser, toUser FROM demandes WHERE idDemande = %s', [user.idConv])
+            demande = cursor.fetchone()
+            if not demande:
+                raise HTTPException(status_code=404, detail="Demande introuvable")
+            cursor.execute('UPDATE demandes SET statusD = %s WHERE idDemande = %s', [user.status, user.idConv])
+            if user.status == 'accepted':
+                id1, id2 = sorted((demande['fromUser'], demande['toUser']))
+                cursor.execute('INSERT IGNORE INTO contacts (idUser1, idUser2) VALUES (%s, %s)', [id1, id2])
         conn.commit()
         conn.close()
         return {"message": "ok"}
@@ -188,7 +206,14 @@ def getContacts(user: userId):
     try:
         conn = connexion("read")
         with conn.cursor() as cursor:
-            cursor.execute('call getContacts(%s)', [user.id])
+            cursor.execute('''
+                SELECT CASE WHEN C.idUser1 = %s THEN C.idUser2 ELSE C.idUser1 END AS idContact,
+                       CASE WHEN C.idUser1 = %s THEN P2.username ELSE P1.username END AS contact
+                FROM contacts C
+                JOIN pseudo P1 ON P1.idUser = C.idUser1
+                JOIN pseudo P2 ON P2.idUser = C.idUser2
+                WHERE C.idUser1 = %s OR C.idUser2 = %s
+            ''', [user.id, user.id, user.id, user.id])
             result = cursor.fetchall()
         conn.close()
         if  not result:

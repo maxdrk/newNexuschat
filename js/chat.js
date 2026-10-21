@@ -3,7 +3,13 @@ let currentConvId = null
 let currentToUser = null
 
 function openConversation(idContact, usernameContact) {
-    const idUser = parseInt(localStorage.getItem('idUser'))
+    const idUser = Number(localStorage.getItem('idUser'))
+    idContact = Number(idContact)
+    if (!Number.isInteger(idUser) || !Number.isInteger(idContact) || idUser <= 0 || idContact <= 0) {
+        console.error('Identifiants invalides pour créer la conversation:', { idUser, idContact })
+        alert('Impossible d’ouvrir la conversation : identifiant utilisateur invalide. Reconnecte-toi puis réessaie.')
+        return
+    }
     if (ws) {
         ws.close()
         ws = null
@@ -21,14 +27,25 @@ function openConversation(idContact, usernameContact) {
             loadHistory(currentConvId)
             connectWebSocket(currentConvId, idUser)
             updatePartnerBar(usernameContact)
+        } else {
+            console.error('Création de conversation échouée:', xhr.status, xhr.responseText)
+            let detail = 'Erreur inconnue'
+            try {
+                detail = JSON.parse(xhr.responseText).detail || detail
+            } catch (_) {}
+            alert(`Impossible d’ouvrir la conversation (${xhr.status}) : ${detail}`)
         }
+    }
+    xhr.onerror = function() {
+        console.error('API inaccessible pendant la création de conversation')
+        alert('Impossible de joindre l’API (localhost:8000). Vérifie que le serveur Python est démarré.')
     }
     xhr.send(JSON.stringify({ idUser1: idUser, idUser2: idContact }))
 }
 
 function connectWebSocket(convId, idUser) {
     const pseudo = localStorage.getItem('username')
-    ws = new WebSocket(`ws://localhost:8000/conversations/ws/${convId}/${idUser}/${pseudo}`)
+    ws = new WebSocket(`ws://localhost:8000/conversations/ws/${convId}/${idUser}/${encodeURIComponent(pseudo)}`)
 
     ws.onopen = () => console.log(`WS connecté — conv ${convId}`)
 

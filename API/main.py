@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import uvicorn
 from users import router as user_router
 from conversation import router as conv_router
 from demandes import router as demande_router
@@ -26,3 +27,6 @@ app.include_router(avatar_router, tags=["avatar"])
 @app.get("/")
 def root():
     return {"message": "Les APIS Nexuschat sont entrain de tournées :)"}
+
+
+

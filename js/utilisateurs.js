@@ -92,16 +92,15 @@ function renderSearchResults(users) {
             <div class="search-result-row">
                 <div class="c-avatar" style="overflow:hidden;"><img src="${getAvatar(u.pseudo)}" style="width:100%;height:100%;object-fit:cover;" alt="${u.pseudo}"></div>
                 <span class="search-result-name">${u.pseudo}</span>
-                <button class="btn-win98 btn-add" onclick="addContact(${u.id}, '${u.pseudo}')">
+                <button class="btn-win98 btn-add" onclick="addContact(${u.id}, '${u.pseudo}', this)">
                     <i class="ti ti-user-plus"></i> Ajouter
                 </button>
             </div>
         `).join('')
 }
 
-function addContact(idUser, username) {
-    console.log(`Ajout du contact : ${username} (id: ${idUser})`)
-        // à brancher sur l'API quand la route sera prête
+function addContact(idUser, username, button) {
+    createDemande(idUser, button)
 }
 
 function loadNotifications() {
@@ -137,10 +136,9 @@ function renderNotifications(demandes) {
         return
     }
 
-    const currentUser = localStorage.getItem('username')
-
     container.innerHTML = demandes.map(d => {
-                const isReceived = d.destinataire === currentUser
+                const isReceived = d.idTo === Number(localStorage.getItem('idUser'))
+                const isPending = d.status === 'pending'
                 return `
             <div class="notif-row">
                 <div class="notif-text">
@@ -148,11 +146,11 @@ function renderNotifications(demandes) {
                         ? `<b>${d.expediteur}</b> souhaite vous ajouter`
                         : `Demande envoyée à <b>${d.destinataire}</b>`}
                 </div>
-                ${isReceived ? `
+                ${isReceived && isPending ? `
                 <div class="notif-actions">
                     <button class="btn-win98" onclick="acceptDemande(${d.idDemande})">✓</button>
                     <button class="btn-win98 btn-danger" onclick="refuserDemande(${d.idDemande})">✕</button>
-                </div>` : `<span class="notif-pending">En attente</span>`}
+                </div>` : `<span class="notif-pending">${d.status === 'accepted' ? 'Acceptée' : d.status === 'refused' ? 'Refusée' : 'En attente'}</span>`}
             </div>
         `
     }).join('')
@@ -160,6 +158,7 @@ function renderNotifications(demandes) {
 
 function acceptDemande(idDemande) {
     updateStatusDemande(idDemande, 'accepted', () => {
+        getContacts()
         getDemandes(renderNotifications)
     })
 }

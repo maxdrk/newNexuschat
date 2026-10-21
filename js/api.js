@@ -16,10 +16,10 @@ function InitPage() {
             document.getElementById('username').innerHTML = result.username
             document.getElementById('usermail').innerHTML = result.mail
             setAvatar('myAvatar', result.username)
+            loadPseudo()
         }
     }
     xhr.send(JSON.stringify({ id: idUser }))
-    loadPseudo()
     getContacts()
 }
 
@@ -84,12 +84,19 @@ function createUser(form) {
             const result = JSON.parse(xhr.responseText)
             let message = document.getElementById('message')
 
-            console.log(result.detail)
             idUser = result.idUser
             localStorage.setItem('idUser', result.idUser)
             message.innerHTML = 'Compte créé avec succès'
+            message.classList.remove('messagePasOk')
             message.classList.add('messageOk')
             setTimeout(() => { Login(form) }, 2000)
+        }
+        else {
+            const message = document.getElementById('message')
+            const result = JSON.parse(xhr.responseText || '{}')
+            message.innerHTML = result.detail || 'Impossible de créer le compte'
+            message.classList.remove('messageOk')
+            message.classList.add('messagePasOk')
         }
     }
     xhr.send(JSON.stringify({ username: vusername, email: vmail, password: vmdp }))
@@ -103,7 +110,6 @@ function selectUser(query = '') {
     xhr.onload = function() {
         if (xhr.status === 200) {
             const result = JSON.parse(xhr.responseText)
-            let idDestinataire = localStorage.setItem('idDestinataire', result.id)
             renderSearchResults(Array.isArray(result) ? result : [result])
         }
     }
@@ -118,33 +124,37 @@ function getDemandes(callback) {
     xhr.onload = function() {
         if (xhr.status === 200) {
             const result = JSON.parse(xhr.responseText)
-            let idConv = localStorage.setItem('idConv', result.idConv)
-            callback(Array.isArray(result) ? result : [result])
+            callback(Array.isArray(result) ? result : [])
         }
     }
     xhr.send(JSON.stringify({ id: idUser }))
 }
 
-function createDemande() {
+function createDemande(idTo, button) {
     const xhr = new XMLHttpRequest()
     xhr.open("POST", "http://localhost:8000/users/createDemande")
     xhr.setRequestHeader('content-type', 'application/json')
     xhr.onload = function() {
         if (xhr.status === 200) {
-            const result = JSON.parse(xhr.responseText)
-            let idDestinataire = localStorage.setItem('idDestinataire', result.id)
-            renderSearchResults(Array.isArray(result) ? result : [result])
+            if (button) {
+                button.disabled = true
+                button.textContent = 'En attente'
+            }
+            getDemandes(renderNotifications)
+        } else if (button) {
+            const result = JSON.parse(xhr.responseText || '{}')
+            button.textContent = result.detail || 'Erreur'
         }
     }
-    xhr.send(JSON.stringify({ idFrom: localStorage.getItem('idUser'), idTo: localStorage.getItem("idDestinaire") }))
+    xhr.send(JSON.stringify({ idFrom: Number(localStorage.getItem('idUser')), idTo: Number(idTo) }))
 }
 
-function updateStatusDemande(idConv, status, callback) {
+function updateStatusDemande(idDemande, status, callback) {
     const xhr = new XMLHttpRequest()
     xhr.open("POST", "http://localhost:8000/users/updateStatusDemande")
     xhr.setRequestHeader('content-type', 'application/json')
     xhr.onload = function() {
         if (xhr.status === 200 && callback) callback()
     }
-    xhr.send(JSON.stringify({ status: status, idConv: idConv }))
+    xhr.send(JSON.stringify({ status: status, idConv: idDemande }))
 }

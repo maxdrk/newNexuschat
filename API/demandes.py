@@ -39,6 +39,9 @@ class updateStatusDemande(BaseModel):
     userTo:int
     status : str
 
+class userIdentity(BaseModel):
+    userId : int
+
 @router.post('/createDemande')
 def createDemande(user : demande):
     try:
@@ -56,7 +59,7 @@ def createDemande(user : demande):
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post('/getDemandes')
-def getDemandes(user : userId):
+def getDemandes(user : userIdentity):
     try:
         conn = connexion("read")
         with conn.cursor() as cursor:

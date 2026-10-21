@@ -52,6 +52,11 @@ class ConnectionManager:
 manager = ConnectionManager()
 
 
+def table_columns(cursor, table_name):
+    cursor.execute(f"SHOW COLUMNS FROM `{table_name}`")
+    return {row['Field'] for row in cursor.fetchall()}
+
+
 class ConvCreate(BaseModel):
     idUser1: int
     idUser2: int
@@ -59,75 +64,162 @@ class ConvCreate(BaseModel):
 
 @router.post('/create')
 def create_conversation(data: ConvCreate):
+    if data.idUser1 <= 0 or data.idUser2 <= 0:
+        raise HTTPException(status_code=400, detail="Les identifiants des utilisateurs doivent être positifs")
+    if data.idUser1 == data.idUser2:
+        raise HTTPException(status_code=400, detail="Une conversation nécessite deux utilisateurs différents")
+
+    user1, user2 = sorted((data.idUser1, data.idUser2))
+    read_conn = None
+    write_conn = None
     try:
-        conn = connexion('create')
-        with conn.cursor() as cursor:
-            cursor.execute('''
-                SELECT convId FROM conversations
-                WHERE (fromUser = %s AND toUser = %s)
-                OR (fromUser = %s AND toUser = %s)
-            ''', [data.idUser1, data.idUser2, data.idUser2, data.idUser1])
+        # La vérification utilise le compte lecture : le compte d'écriture
+        # peut être volontairement limité aux INSERT/UPDATE.
+        read_conn = connexion('read')
+        with read_conn.cursor() as cursor:
+            conversation_columns = table_columns(cursor, 'conversations')
+            if {'idUser1', 'idUser2'} <= conversation_columns:
+                cursor.execute('''
+                    SELECT convId FROM conversations
+                    WHERE idUser1 = %s AND idUser2 = %s
+                ''', [user1, user2])
+            elif {'fromUser', 'toUser'} <= conversation_columns:
+                cursor.execute('''
+                    SELECT convId FROM conversations
+                    WHERE (fromUser = %s AND toUser = %s)
+                       OR (fromUser = %s AND toUser = %s)
+                ''', [user1, user2, user2, user1])
+            else:
+                raise HTTPException(status_code=500, detail="Schéma de la table conversations non reconnu")
+            legacy_conversations = 'fromUser' in conversation_columns
             existing = cursor.fetchone()
-            if existing:
-                return {"convId": existing['convId']}
-            cursor.execute(
-                'INSERT INTO conversations (fromUser, toUser) VALUES (%s, %s)',
-                [data.idUser1, data.idUser2]
-            )
-            conn.commit()
+        read_conn.close()
+        read_conn = None
+        if existing:
+            return {"convId": existing['convId']}
+
+        write_conn = connexion('create')
+        with write_conn.cursor() as cursor:
+            if legacy_conversations:
+                cursor.execute(
+                    'INSERT INTO conversations (fromUser, toUser) VALUES (%s, %s)',
+                    [user1, user2]
+                )
+            else:
+                cursor.execute(
+                    'INSERT INTO conversations (idUser1, idUser2) VALUES (%s, %s)',
+                    [user1, user2]
+                )
+            write_conn.commit()
             return {"convId": cursor.lastrowid}
+    except pymysql.err.IntegrityError as e:
+        if e.args and e.args[0] == 1062:
+            # Une autre requête a pu créer la même paire entre le SELECT et l'INSERT.
+            retry_conn = connexion('read')
+            try:
+                with retry_conn.cursor() as cursor:
+                    conversation_columns = table_columns(cursor, 'conversations')
+                    if {'idUser1', 'idUser2'} <= conversation_columns:
+                        cursor.execute('SELECT convId FROM conversations WHERE idUser1 = %s AND idUser2 = %s', [user1, user2])
+                    else:
+                        cursor.execute('''
+                            SELECT convId FROM conversations
+                            WHERE (fromUser = %s AND toUser = %s)
+                               OR (fromUser = %s AND toUser = %s)
+                        ''', [user1, user2, user2, user1])
+                    existing = cursor.fetchone()
+                if existing:
+                    return {"convId": existing['convId']}
+            finally:
+                retry_conn.close()
+        raise HTTPException(status_code=400, detail=f"Impossible de créer la conversation : {e}")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Erreur lors de la création de la conversation : {e}")
     finally:
-        conn.close()
+        if read_conn:
+            read_conn.close()
+        if write_conn:
+            write_conn.close()
 
 
 @router.get('/history/{conv_id}')
 def get_history(conv_id: int):
+    conn = None
     try:
         conn = connexion('read')
         with conn.cursor() as cursor:
-            cursor.execute(
-                'SELECT fromUser, toUser FROM conversations WHERE convId = %s',
-                [conv_id]
-            )
+            conversation_columns = table_columns(cursor, 'conversations')
+            if {'idUser1', 'idUser2'} <= conversation_columns:
+                cursor.execute('SELECT idUser1 AS user1, idUser2 AS user2 FROM conversations WHERE convId = %s', [conv_id])
+            else:
+                cursor.execute('SELECT fromUser AS user1, toUser AS user2 FROM conversations WHERE convId = %s', [conv_id])
             conv = cursor.fetchone()
             if not conv:
                 raise HTTPException(status_code=404, detail="Conversation introuvable")
 
-            cursor.execute('''
-                SELECT M.messageId, P.username AS auteur, M.contenu,
-                       DATE_FORMAT(M.createdAt, '%%H:%%i') AS heure
-                FROM message M
-                JOIN pseudo P ON M.fromUser = P.idUser
-                WHERE (M.fromUser = %s AND M.toUser = %s)
-                   OR (M.fromUser = %s AND M.toUser = %s)
-                ORDER BY M.createdAt ASC
-            ''', [conv['fromUser'], conv['toUser'],
-                  conv['toUser'], conv['fromUser']])
+            message_columns = table_columns(cursor, 'message')
+            if 'convId' in message_columns:
+                cursor.execute('''
+                    SELECT M.messageId, P.username AS auteur, M.contenu,
+                           DATE_FORMAT(M.createdAt, '%%H:%%i') AS heure
+                    FROM message M
+                    JOIN pseudo P ON M.fromUser = P.idUser
+                    WHERE M.convId = %s
+                    ORDER BY M.createdAt ASC
+                ''', [conv_id])
+            else:
+                cursor.execute('''
+                    SELECT M.messageId, P.username AS auteur, M.contenu,
+                           DATE_FORMAT(M.createdAt, '%%H:%%i') AS heure
+                    FROM message M
+                    JOIN pseudo P ON M.fromUser = P.idUser
+                    WHERE (M.fromUser = %s AND M.toUser = %s)
+                       OR (M.fromUser = %s AND M.toUser = %s)
+                    ORDER BY M.createdAt ASC
+                ''', [conv['user1'], conv['user2'], conv['user2'], conv['user1']])
             return cursor.fetchall()
     except HTTPException:
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     finally:
-        conn.close()
+        if conn:
+            conn.close()
 
 
 @router.websocket('/ws/{conv_id}/{id_user}/{username}')
 async def websocket_endpoint(websocket: WebSocket, conv_id: int, id_user: int, username: str):
-    await manager.connect(conv_id, websocket)
+    conn = None
     try:
+        conn = connexion('read')
+        with conn.cursor() as cursor:
+            conversation_columns = table_columns(cursor, 'conversations')
+            if {'idUser1', 'idUser2'} <= conversation_columns:
+                cursor.execute('SELECT idUser1 AS user1, idUser2 AS user2 FROM conversations WHERE convId = %s', [conv_id])
+            else:
+                cursor.execute('SELECT fromUser AS user1, toUser AS user2 FROM conversations WHERE convId = %s', [conv_id])
+            conv = cursor.fetchone()
+            message_columns = table_columns(cursor, 'message')
+            legacy_messages = 'convId' not in message_columns
+        conn.close()
+        conn = None
+        if not conv or id_user not in (conv['user1'], conv['user2']):
+            await websocket.close(code=1008)
+            return
+
+        to_user = conv['user2'] if id_user == conv['user1'] else conv['user1']
+        await manager.connect(conv_id, websocket)
         while True:
             data = await websocket.receive_json()
             conn = connexion('create')
             with conn.cursor() as cursor:
-                cursor.execute(
-                    'INSERT INTO message (contenu, fromUser, toUser) VALUES (%s, %s, %s)',
-                    [data['contenu'], id_user, data['toUser']]
-                )
+                if legacy_messages:
+                    cursor.execute('INSERT INTO message (contenu, fromUser, toUser) VALUES (%s, %s, %s)', [data['contenu'], id_user, to_user])
+                else:
+                    cursor.execute('INSERT INTO message (convId, contenu, fromUser) VALUES (%s, %s, %s)', [conv_id, data['contenu'], id_user])
                 conn.commit()
             conn.close()
+            conn = None
 
             await manager.broadcast(conv_id, {
                 'auteur': username,
@@ -137,3 +229,6 @@ async def websocket_endpoint(websocket: WebSocket, conv_id: int, id_user: int, u
             })
     except WebSocketDisconnect:
         manager.disconnect(conv_id, websocket)
+    finally:
+        if conn:
+            conn.close()

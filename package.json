@@ -20,7 +20,7 @@
     },
     "homepage": "https://github.com/maxdrk/newNexuschat#readme",
     "devDependencies": {
-        "electron": "^42.4.0"
+        "electron": "^42.11.18"
     },
     "dependencies": {
         "@dicebear/core": "^10.3.0",
