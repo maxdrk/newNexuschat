@@ -11,11 +11,11 @@ function waitForData() {
     const text = document.getElementById('loadingText')
 
     const interval = setInterval(() => {
-        progress += 20
+        progress += 15
         fill.style.width = progress + '%'
 
-        if (progress === 40) text.innerHTML = 'Récupération du profil...'
-        if (progress === 80) text.innerHTML = 'Chargement des contacts...'
+        if (progress === 45) text.innerHTML = 'Récupération du profil...'
+        if (progress === 75) text.innerHTML = 'Chargement des contacts...'
 
         if (progress >= 100) {
             clearInterval(interval)
