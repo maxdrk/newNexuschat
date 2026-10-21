@@ -46,20 +46,19 @@ BEGIN
     WHERE U.idUser = vIdUser;
 END$$
 
--- Renvoie le hash : la comparaison du mot de passe se fait côté application
+-- Renvoie le hash stocké ; la comparaison du mot de passe se fait côté application
+DROP PROCEDURE IF EXISTS loginUser$$
 DELIMITER //
 
 CREATE PROCEDURE loginUser(
-    IN vemail VARCHAR(254),
-    IN vpassword VARCHAR(254)
+    IN vemail VARCHAR(254)
 )
 BEGIN
     SELECT U.idUser, P.username, M.mail, U.password AS passwordHash
     FROM users U
     JOIN mail M ON U.idMail = M.idMail
     JOIN pseudo P ON U.idUser = P.idUser
-    WHERE M.mail = vemail
-      AND U.password = vpassword;
+    WHERE M.mail = vemail;
 END //
 
 DELIMITER ;

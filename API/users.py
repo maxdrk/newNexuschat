@@ -3,9 +3,15 @@ from pydantic import BaseModel
 from typing import Literal
 import pymysql
 import os
+import sys
+from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
+
+modules_path = Path(__file__).resolve().parent.parent / "modules"
+sys.path.insert(0, str(modules_path))
+import hash
 
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -55,8 +61,9 @@ class updateStatusDemande(BaseModel):
 def createUser(user: UserCreate):  
     try:
         conn = connexion('create')
-        with conn.cursor() as cursor:  
-            cursor.callproc('createUser', [user.username, user.email, user.password])  
+        with conn.cursor() as cursor:
+            passwordHash = hash.hash_password(user.password)
+            cursor.callproc('createUser', [user.username, user.email, passwordHash])
             cursor.execute('SELECT U.idUser FROM users U JOIN mail M ON M.idMail = U.idMail WHERE M.mail = %s', [user.email])
             created = cursor.fetchone()
             conn.commit() 
@@ -91,14 +98,12 @@ def login(user : UserLogin):
     try:
         conn = connexion("read")
         with conn.cursor() as cursor:
-            cursor.execute('call loginUser(%s,%s)', [user.email, user.password])
+            cursor.execute('call loginUser(%s)', [user.email])
             result = cursor.fetchone()
         conn.close()
-        if  not result:
+        if not result or not hash.verify_password(result['passwordHash'], user.password):
             return False
-        else:
-            print(result)
-            return {"success" : True,"idUser" : result['idUser']}
+        return {"success": True, "idUser": result['idUser']}
     except HTTPException:
         raise   
 
