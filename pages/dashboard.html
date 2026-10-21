@@ -57,21 +57,6 @@
                 <div id="notifications" style="display:none;"></div>
             </div>
             <div class="chat-area">
-                <div class="chat-toolbar">
-                    <div class="tool-btn">
-                        <i class="ti ti-mood-smile" aria-hidden="true"></i> Émoticônes
-                    </div>
-                    <div class="tool-btn">
-                        <i class="ti ti-photo" aria-hidden="true"></i> Envoyer un fichier
-                    </div>
-                    <div class="tool-btn">
-                        <i class="ti ti-video" aria-hidden="true"></i> Vidéo
-                    </div>
-                    <div class="tool-btn">
-                        <i class="ti ti-user-plus" aria-hidden="true"></i> Inviter
-                    </div>
-                </div>
-
                 <div class="chat-partner-bar" id="partnerBar" style="display:none;">
                     <div class="partner-avatar" id="partnerAvatar"></div>
                     <div>
@@ -88,23 +73,7 @@
                 </div>
                 <div class="messages-area" id="messages" style="display:none;"></div>
                 <div class="input-section">
-                    <div class="input-toolbar">
-                        <i class="ti ti-bold" aria-hidden="true"></i>
-                        <i class="ti ti-italic" aria-hidden="true"></i>
-                        <i class="ti ti-underline" aria-hidden="true"></i>
-                        <div class="sep"></div>
-                        <i class="ti ti-typography" aria-hidden="true"></i>
-                        <i class="ti ti-palette" aria-hidden="true"></i>
-                        <div class="sep"></div>
-                        <i class="ti ti-mood-smile" aria-hidden="true"></i>
-                        <i class="ti ti-paperclip" aria-hidden="true"></i>
-                    </div>
                     <textarea class="input-box" placeholder="Écrivez votre message ici..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"></textarea>
-                    <div class="send-row">
-                        <span class="hint-text">Entrée pour envoyer · Shift+Entrée pour sauter une ligne</span>
-                        <button class="nudge-btn">Secouer !</button>
-                        <button class="send-btn" onclick="sendMessage()">Envoyer</button>
-                    </div>
                 </div>
 
             </div>

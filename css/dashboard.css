@@ -260,36 +260,6 @@
     flex-direction: column;
 }
 
-.chat-toolbar {
-    background: var(--color-bg-panel);
-    border-bottom: var(--border-standard);
-    padding: 3px 8px;
-    display: flex;
-    gap: 2px;
-    align-items: center;
-}
-
-.tool-btn {
-    font-size: var(--font-sm);
-    color: var(--color-primary);
-    cursor: pointer;
-    padding: 2px 6px;
-    border: 1px solid transparent;
-    display: flex;
-    align-items: center;
-    gap: 3px;
-}
-
-.tool-btn:hover {
-    border-color: var(--color-border);
-    background: var(--color-bg-active);
-}
-
-.tool-btn i {
-    font-size: 13px;
-}
-
-
 /* Barre info du contact */
 
 .chat-partner-bar {
@@ -405,35 +375,13 @@
 
 .input-section {
     border-top: 2px solid var(--color-border);
-}
-
-.input-toolbar {
-    background: var(--color-bg-panel);
-    padding: 3px 8px;
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    border-bottom: var(--border-standard);
-}
-
-.input-toolbar i {
-    font-size: 15px;
-    color: var(--color-primary);
-    cursor: pointer;
-}
-
-.input-toolbar i:hover {
-    color: var(--color-primary-light);
-}
-
-.sep {
-    border-left: var(--border-standard);
-    height: 14px;
-    margin: 0 2px;
+    flex: 0 0 auto;
 }
 
 .input-box {
     width: 100%;
+    box-sizing: border-box;
+    display: block;
     padding: 6px 10px;
     min-height: 64px;
     font-size: var(--font-md);
@@ -444,49 +392,6 @@
     font-family: var(--font-main);
     background: var(--color-bg-white);
 }
-
-.send-row {
-    background: var(--color-bg-window);
-    padding: 4px 8px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 8px;
-    border-top: var(--border-standard);
-}
-
-.hint-text {
-    font-size: var(--font-xs);
-    color: var(--color-text-muted);
-}
-
-.nudge-btn {
-    font-size: var(--font-sm);
-    padding: 3px 10px;
-    background: #FFF3C4;
-    border: 1px solid #BA7517;
-    color: #633806;
-    cursor: pointer;
-}
-
-.nudge-btn:hover {
-    background: #FAC775;
-}
-
-.send-btn {
-    font-size: var(--font-sm);
-    padding: 3px 14px;
-    background: var(--color-bg-panel);
-    border: var(--border-standard);
-    color: var(--color-primary);
-    cursor: pointer;
-    font-weight: 500;
-}
-
-.send-btn:hover {
-    background: var(--color-bg-active);
-}
-
 
 /* ── Panneau recherche contact ── */
 
