@@ -50,4 +50,37 @@ Les API sont construites en python en utilisant la bibliothèque FASTAPI, l'util
     - utilisateurs.js (API dédié à la gestion de demande de notifications et de recherche d'utiliateurs)
     - loading.js (Script de chargement laissant le temps aux chargements de API.JS)
 
-    
+--------------------
+
+
+![dashbaord nexuschat](image.png)    
+
+
+
+---------------------
+
+
+![alt text](image-1.png)
+
+
+
+---------------------------------
+
+
+
+
+![alt text](image-2.png)
+
+
+--------------------------------------
+
+
+![alt text](image-3.png)
+
+
+-------------------------------------
+
+
+![alt text](image-4.png)
+
+---------------------------------
