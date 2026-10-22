@@ -44,16 +44,15 @@ Les API sont construites en python en utilisant la bibliothèque FASTAPI, l'util
 - API/
     - .env.example (template des variables d'environnement)
     - avatar.py (API qui concerne les photos de profils)
-    - api.js (API qui concernce les features de la dashboard)
-    - chat.js (API concernant les conversations)
-    - profile.js (API concernant les données profils)
-    - utilisateurs.js (API dédié à la gestion de demande de notifications et de recherche d'utiliateurs)
-    - loading.js (Script de chargement laissant le temps aux chargements de API.JS)
+    - demandes.py (API concernant les requêtes de demande d'ajout entre utilisateurs)
+    - main.py (point central de l'API recuperant toutes les autres API)
+    - users.py (API concernant toute les intercations utilisateurs)
+    - conversations.py (Gestion conversations socket,stockage,etc..)
+
 
 
 ### Base de données 
 
-## Base de données
 
 NexusChat utilise MariaDB. La base s’appelle `Nexuschat` et stocke les comptes, les contacts, les demandes de contact, les conversations et leurs messages.
 
