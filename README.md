@@ -50,6 +50,47 @@ Les API sont construites en python en utilisant la bibliothèque FASTAPI, l'util
     - utilisateurs.js (API dédié à la gestion de demande de notifications et de recherche d'utiliateurs)
     - loading.js (Script de chargement laissant le temps aux chargements de API.JS)
 
+
+### Base de données 
+
+## Base de données
+
+NexusChat utilise MariaDB. La base s’appelle `Nexuschat` et stocke les comptes, les contacts, les demandes de contact, les conversations et leurs messages.
+
+### Tables
+
+- **`mail`** : contient l’adresse e-mail de chaque compte et son état de vérification (`mailVerify`). Chaque adresse est unique.
+- **`users`** : contient l’identifiant du compte, le lien vers son adresse e-mail et son mot de passe haché. Le mot de passe est enregistré sous forme de hash, jamais en clair.
+- **`pseudo`** : associe un pseudo unique à chaque compte.
+- **`contacts`** : représente les contacts confirmés entre deux utilisateurs. La paire d’identifiants forme la clé primaire et est enregistrée dans l’ordre croissant.
+- **`demandes`** : enregistre les demandes de contact. `fromUser` désigne l’expéditeur et `toUser` le destinataire. Le statut peut être `pending`, `accepted` ou `refused`.
+- **`conversations`** : représente une conversation entre deux utilisateurs. La paire d’identifiants est unique et doit être enregistrée dans l’ordre croissant.
+- **`message`** : contient les messages d’une conversation, leur auteur, leur contenu et leur date de création. Le destinataire est déterminé à partir des deux participants de la conversation.
+
+### Relations principales
+
+- Un compte (`users`) est associé à une adresse e-mail (`mail`) et à un pseudo (`pseudo`).
+- Une conversation (`conversations`) relie deux comptes.
+- Chaque message (`message`) appartient à une conversation et est envoyé par un compte.
+- Une demande de contact (`demandes`) relie un expéditeur à un destinataire.
+- Une fois la demande acceptée, les deux utilisateurs sont enregistrés dans `contacts`.
+
+### Schéma simplifié
+
+MAIL ─── USERS ─── PSEUDO
+          │
+          ├── CONVERSATIONS ─── MESSAGE
+          │       entre 2 users       écrit par 1 user
+          │
+          ├── DEMANDES
+          │    un user envoie une demande à un autre
+          │
+          └── CONTACTS
+               relie 2 users après acceptation
+
+
+
+               
 --------------------
 
 
