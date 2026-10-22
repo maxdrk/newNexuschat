@@ -14,17 +14,36 @@ function changeStatus() {
 }
 
 function loadPseudo() {
-    let footerName = document.getElementById("footPseudo")
-    footerName.innerHTML = `<span>Connecté en tant que : ${localStorage.getItem('username')} </span>`
+    let footerName = document.getElementById("profileStatusBar")
+    footerName.innerHTML = localStorage.getItem('username')
 }
 
 function Initprofile() {
     loadProfil()
+    loadPseudo()
 }
 
 function loadProfil() {
     const username = localStorage.getItem('username')
     document.getElementById("profileUsername").innerHTML = username
+     document.getElementById("profileId").innerHTML = username
+      document.getElementById("profilePseudo").innerHTML = username
     document.getElementById("profileEmail").innerHTML = localStorage.getItem('userMail')
+    document.getElementById("profileEmailDetail").innerHTML = localStorage.getItem('userMail')
+    document.getElementById("profileMailVerify").innerHTML = "false"
+    document.getElementById("profileSince").innerHTML = "Aucune donnée"
+    const mood = localStorage.getItem('userMood') || '...'
+    document.getElementById('profileMood').textContent = `"${mood}"`
     setAvatar('profileAvatar', username)
+}
+
+function editProfileMood() {
+    const currentMood = localStorage.getItem('userMood') || ''
+    const newMood = window.prompt('Ton message personnel :', currentMood)
+
+    if (newMood === null) return
+
+    const mood = newMood.trim()
+    localStorage.setItem('userMood', mood)
+    document.getElementById('profileMood').textContent = `"${mood || '...'}"`
 }

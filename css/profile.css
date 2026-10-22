@@ -150,6 +150,14 @@
     font-family: var(--font-vintage);
     color: var(--color-text-secondary);
     font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.profile-mood-edit {
+    flex-shrink: 0;
 }
 
 /* ── Grille infos ── */

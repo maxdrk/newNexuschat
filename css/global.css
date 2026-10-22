@@ -3,7 +3,7 @@
     --color-primary: #000080;
     --color-primary-light: #1084d0;
     --color-border: #dfdfdf;
-    --color-bg-page: #008080;
+    --color-bg-page: url("../assets/winXP.webp");
     --color-bg-window: #c0c0c0;
     --color-bg-panel: #c0c0c0;
     --color-bg-active: #a0a0a0;
@@ -54,7 +54,7 @@
 
 /* ── Body ── */
 body {
-    background: var(--color-bg-page);
+    background: var(--color-bg-page) center center / cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;

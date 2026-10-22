@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusChat -- Profil</title>
+    <title>Profil</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/profile.css">
@@ -16,7 +16,7 @@
 
         <div class="win-titlebar">
             <div class="win-titlebar-left">
-                <i class="ti ti-user-circle" aria-hidden="true"></i> NexusChat — Mon Profil
+                <i class="ti ti-user-circle" aria-hidden="true"></i>Mon Profil
             </div>
             <div class="win-titlebar-right">
                 <button class="win-btn" onclick="window.location.href='dashboard.html'">✕</button>
@@ -46,7 +46,11 @@
                 <div class="section-title">
                     <i class="ti ti-message-circle" aria-hidden="true"></i> Message personnel
                 </div>
-                <div class="profile-mood" id="profileMood">"..."</div>
+                <div class="profile-mood">
+                    <span id="profileMood">"..."</span>
+                    <button class="btn-win98 profile-mood-edit" type="button" onclick="editProfileMood()">Modifier</button>
+                </div>
+              
             </div>
 
             <!-- Informations du compte -->
