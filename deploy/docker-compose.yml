@@ -1,19 +1,21 @@
 services:
   api:
     container_name: api-nexuschat
-    build: ./api
+    build:
+      context: ..
+      dockerfile: deploy/api/Dockerfile
     ports:
       - "8050:8000"
     networks:
       - nexuschat
 
   nexuschat:
-    image: ubuntu/apache2
     container_name: site-nexuschat
-    build: ./web
+    build:
+      context: ..
+      dockerfile: deploy/web/Dockerfile
     ports:
       - "9000:80"
-     
     networks:
       - nexuschat
 
