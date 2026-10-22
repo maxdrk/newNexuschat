@@ -1,0 +1,22 @@
+services:
+  api:
+    container_name: api-nexuschat
+    build: ./api
+    ports:
+      - "8000:8000"
+    networks:
+      - nexuschat
+
+  nexuschat:
+    image: ubuntu/apache2
+    container_name: site-nexuschat
+    build: ./web
+    ports:
+      - "9000:80"
+     
+    networks:
+      - nexuschat
+
+networks:
+  nexuschat:
+    driver: bridge
