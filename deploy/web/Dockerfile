@@ -1,15 +1,9 @@
-from ubuntu/apache2
+FROM ubuntu/apache2
 
-WORKDIR /var/www
+RUN rm -f /var/www/html/index.html
 
-run rm -f index.html
+COPY nexuschat.conf /etc/apache2/sites-available/nexuschat.conf
+COPY . /var/www/html/
 
-COPY ../../ ./
-
-
-run rm /etc/apache2/site-available/000-default.conf
-
-COPY ./nexuschat.conf /etc/apache2/sites-available/
-
-run a2ensite nexuschat
-
+RUN a2dissite 000-default.conf \
+    && a2ensite nexuschat.conf
