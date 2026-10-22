@@ -3,7 +3,7 @@ services:
     container_name: api-nexuschat
     build: ./api
     ports:
-      - "8000:8000"
+      - "8050:8000"
     networks:
       - nexuschat
 
