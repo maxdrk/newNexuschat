@@ -1,10 +1,10 @@
 from fastapi import FastAPI
-import uvicorn
 from users import router as user_router
 from conversation import router as conv_router
 from demandes import router as demande_router
 from avatar import router as avatar_router
 from fastapi.middleware.cors import CORSMiddleware
+
 
 
 
@@ -14,6 +14,7 @@ app.add_middleware(
     allow_origins=[
         "http://127.0.0.1:5500",
         "http://localhost:5500",
+        
     ],
     allow_credentials=True,
     allow_methods=["*"],

@@ -1,3 +1,4 @@
 API/*.env
 node_modules
 venv
+deploy/db/nexuschat.sql

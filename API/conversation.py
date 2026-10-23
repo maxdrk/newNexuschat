@@ -73,8 +73,6 @@ def create_conversation(data: ConvCreate):
     read_conn = None
     write_conn = None
     try:
-        # La vérification utilise le compte lecture : le compte d'écriture
-        # peut être volontairement limité aux INSERT/UPDATE.
         read_conn = connexion('read')
         with read_conn.cursor() as cursor:
             conversation_columns = table_columns(cursor, 'conversations')

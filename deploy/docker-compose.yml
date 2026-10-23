@@ -9,6 +9,16 @@ services:
     networks:
       - nexuschat
 
+  db:
+    container_name: db-nexuschat
+    build:
+      context: ..
+      dockerfile: deploy/db/Dockerfile
+    ports:
+      - "3308:3306"
+    networks: 
+     - nexuschat        
+
   nexuschat:
     container_name: site-nexuschat
     build:
